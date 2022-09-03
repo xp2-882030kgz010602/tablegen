@@ -1,5 +1,6 @@
-var move=require("../move.js").move;
-var pair=require("../move.js").pair;
+var movefile="../move.js";
+var move=require(movefile).move;
+var pair=require(movefile).pair;
 var moveleft=function(board){
   var e=board[4];
   var f=board[5];
