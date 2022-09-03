@@ -1,5 +1,7 @@
+var config=require("./config.js").config;
 var bfsqueue=[];
-var spaces=9;
+var spaces=config.spaces;
+//console.log(spaces);
 var spaces1=spaces-1;
 var spaces2=spaces-2;
 for(var i=0;i<=spaces+1;i++){
@@ -68,8 +70,8 @@ var factorial=function(n){
 };
 var validconfigurations=0;
 var buckets=[];
-var values=[0,2,4,8,16,32,64,128,256,512,1024,2048];
-var mappings="0123456789ab";
+var values=require("./maps.js").f;
+var mappings=require("./maps.js").b;
 for(var i=0;i<bfsqueue.length;i++){
   var item=bfsqueue[i];
   if(isvalid(item)){
@@ -85,7 +87,9 @@ for(var i=0;i<bfsqueue.length;i++){
 //console.log(buckets);
 //console.log(validconfigurations);
 var fs=require("fs");
-for(var i=2;i<=2044;i+=2){
+var n=(1<<(spaces+2))-4;
+//console.log(n);
+for(var i=2;i<=n;i+=2){
   console.log(i);
   var perms="";
   var positions=buckets[i];
@@ -93,7 +97,7 @@ for(var i=2;i<=2044;i+=2){
     var item=positions[j];
     perms+=permute(item.map(x=>mappings[x]).reverse());
   }
-  fs.writeFileSync("./positions/"+i+".txt",perms);
+  fs.writeFileSync("./"+config.positionsdir+"/"+i+".txt",perms);
 }
 //console.log(positions);
 //permute(["a","a","a","a","e","f","g","h","i","j"]);

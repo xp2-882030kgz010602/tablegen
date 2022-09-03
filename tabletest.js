@@ -1,9 +1,12 @@
-var move=require("../move.js").move;
-var pair=require("../move.js").pair;
-var moveleft=require("./movedir.js").moveleft;
-var moveright=require("./movedir.js").moveright;
-var moveup=require("./movedir.js").moveup;
-var movedown=require("./movedir.js").movedown;
+var config=require("./config.js").config;
+var movefile=config.movefile;
+var movedirfile=config.movedirfile;
+var move=require(movefile).move;
+var pair=require(movefile).pair;
+var moveleft=require(movedirfile).moveleft;
+var moveright=require(movedirfile).moveright;
+var moveup=require(movedirfile).moveup;
+var movedown=require(movedirfile).movedown;
 var maps=require("./maps.js").maps;
 var spam=require("./maps.js").spam;
 var addrandomtile=function(board){
@@ -25,7 +28,7 @@ var moveall=function(board,direction){
     movedown(board)?addrandomtile(board):null;
   }
 };
-var board=[2,2,8,8,0,0,4,2,2];
+var board=[4,2,4,2,2,2,2,2];
 var fs=require("fs");
 var f=[0,2,4,8,16,32,64,128,256,512];
 var g=["    ","2   ","4   ","8   ","16  ","32  ","64  ","128 ","256 ","512 ","1024"];
@@ -41,7 +44,7 @@ var getmove=function(board){
   var s=0;
   board.map(x=>(s+=x));
   var str=board.map(x=>maps[x]).join("");
-  var table=fs.readFileSync("./tables/"+s+".txt","utf-8").split("\n").map(x=>x.split(" "));
+  var table=fs.readFileSync("./"+config.tablesdir+"/"+s+".txt","utf-8").split("\n").map(x=>x.split(" "));
   var row;
   for(var i=0;i<table.length;i++){
     row=table[i];
@@ -63,9 +66,9 @@ var getmove=function(board){
 var printboard=function(board){
   board=board.map(x=>spam[x]);
   var r0=board.slice(0,4).join("");
-  var r1=board.slice(4,7).join("")+"    ";
-  var r2="    "+board[7]+"        ";
-  var r3="    "+board[8]+"        ";
+  var r1=board.slice(4,6).join("")+"    ";
+  var r2="    "+board[6]+"        ";
+  var r3="    "+board[7]+"        ";
   console.log(r0+"\n"+r1+"\n"+r2+"\n"+r3);
 };
 printboard(board);

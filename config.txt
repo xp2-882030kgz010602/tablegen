@@ -1,0 +1,8 @@
+spaces=8
+positionsdir=positionstest
+tablesdir=tablestest
+movefile=../move.js
+movedirfile=./movedir8.js
+satisfiedfile=./satisfied8.js
+s0=1016
+s1=2

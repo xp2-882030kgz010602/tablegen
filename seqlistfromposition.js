@@ -1,13 +1,16 @@
-var move=require("../move.js").move;
-var pair=require("../move.js").pair;
+var config=require("./config.js").config;
+var movefile=config.movefile;
+var movedirfile=config.movedirfile;
+var move=require(movefile).move;
+var pair=require(movefile).pair;
 //0 1 2 3
 //  4 5 6
 //  7
 //  8
-var moveleft=require("./movedir.js").moveleft;
-var moveright=require("./movedir.js").moveright;
-var moveup=require("./movedir.js").moveup;
-var movedown=require("./movedir.js").movedown;
+var moveleft=require(movedirfile).moveleft;
+var moveright=require(movedirfile).moveright;
+var moveup=require(movedirfile).moveup;
+var movedown=require(movedirfile).movedown;
 var maps=require("./maps.js").maps;
 var spam=require("./maps.js").spam;
 //console.log(sum);
@@ -17,7 +20,7 @@ var addpool=function(item,pool,Pool){
     pool.push(item);
   }
 };
-var satisfied=require("./satisfied.js").satisfied;
+var satisfied=require(config.satisfiedfile).satisfied;
 var add=function(item,pool,Pool){
   if(satisfied(item)){//Do we really need to examine this further?
     return;
@@ -73,7 +76,7 @@ while(l){
   console.log("Pool size="+l);
   console.log("Positions logged="+positions);
   var str=a.map(x=>x.map(y=>maps[y]).join("")).join("\n");
-  fs.writeFileSync("./positions/"+sum+".txt",str);
+  fs.writeFileSync("./"+config.positionsdir+"/"+sum+".txt",str);
   var pool=[];
   var Pool={};
   a.map(x=>add(x,pool,Pool));

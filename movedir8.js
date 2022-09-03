@@ -1,4 +1,5 @@
-var movefile="../move.js";
+var config=require("./config.js").config;
+var movefile=config.movefile;
 var move=require(movefile).move;
 var pair=require(movefile).pair;
 var moveleft=function(board){

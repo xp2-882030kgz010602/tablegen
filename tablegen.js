@@ -1,17 +1,17 @@
-var movefile="./move.js";
-var movedirfile="./movedir.js";
-var mapsfile="./maps.js";
+var config=require("./config.js").config;
+var movefile=config.movefile;
+var movedirfile=config.movedirfile;
 var move=require(movefile).move;
 var pair=require(movefile).pair;
 var moveleft=require(movedirfile).moveleft;
 var moveright=require(movedirfile).moveright;
 var moveup=require(movedirfile).moveup;
 var movedown=require(movedirfile).movedown;
-var maps=require(mapsfile).maps;
-var spam=require(mapsfile).spam;
-var satisfied=require("./satisfied.js").satisfied;
-var positionsdir="positions";
-var tablesdir="tables";
+var maps=require("./maps.js").maps;
+var spam=require("./maps.js").spam;
+var satisfied=require(config.satisfiedfile).satisfied;
+var positionsdir=config.positionsdir;
+var tablesdir=config.tablesdir;
 var str2board=function(str){
   var board=[];
   for(var i=0;i<str.length;i++){
@@ -20,8 +20,8 @@ var str2board=function(str){
   return board;
 };
 var fs=require("fs");
-var s0=2040;
-var s1=2;
+var s0=config.s0;
+var s1=config.s1;
 for(var i=s0+2;i<=s0+4;i+=2){
   var positions=fs.readFileSync("./"+positionsdir+"/"+i+".txt","utf-8").split("\n");
   if(positions[positions.length-1]===""){
