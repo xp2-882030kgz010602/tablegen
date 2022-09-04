@@ -28,10 +28,11 @@ var moveall=function(board,direction){
     movedown(board)?addrandomtile(board):null;
   }
 };
-var board=[4,2,4,2,2,2,2,2];
+//var board=[2,2,0,0,0,0,0,0];
+var board=[2,16,16,2,4,32,128,256];
 var fs=require("fs");
-var f=[0,2,4,8,16,32,64,128,256,512];
-var g=["    ","2   ","4   ","8   ","16  ","32  ","64  ","128 ","256 ","512 ","1024"];
+var f=require("./maps.js").f;
+var g=["_   ","2   ","4   ","8   ","16  ","32  ","64  ","128 ","256 ","512 ","1024"];
 var b="0123456789a";
 var maps={};
 var spam={};
@@ -63,13 +64,18 @@ var getmove=function(board){
   //console.log(row);
   return row[i-1];
 };
+var map=function(y,board){
+  if(y===-1){
+    return "    ";
+  }else{
+    return board[y];
+  }
+};
+var shape=[[0,1,2,3],[4,5,6,7]];
 var printboard=function(board){
   board=board.map(x=>spam[x]);
-  var r0=board.slice(0,4).join("");
-  var r1=board.slice(4,6).join("")+"    ";
-  var r2="    "+board[6]+"        ";
-  var r3="    "+board[7]+"        ";
-  console.log(r0+"\n"+r1+"\n"+r2+"\n"+r3);
+  var s=shape.map(x=>x.map(y=>map(y,board))).map(x=>x.join(" ")).join("\n");
+  console.log(s);
 };
 printboard(board);
 //console.log(getmove(board));
